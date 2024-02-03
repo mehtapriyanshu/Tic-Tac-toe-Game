@@ -18,6 +18,26 @@ board = {1:" ",2:" ",3:" ",
 
 turn = "X"
 
+def checkforwin(player):
+    if board[1] == board[2]and board[1] == board[3] and board[3]==  player:
+        return True
+    elif board[1] == board[4]and board[1] == board[7] and board[7]==  player:
+        return True
+    elif  board[1] == board[5]and board[1] == board[9] and board[9]==  player:
+        return True
+    elif  board[2] == board[5]and board[2] == board[8] and board[8]==  player:
+        return True
+    elif board[4] == board[5]and board[4] == board[6] and board[6]==  player:
+        return True
+    elif  board[7] == board[8]and board[7] == board[9] and board[9]==  player:
+        return True
+    elif  board[3] == board[6]and board[3] == board[9] and board[9]==  player:
+        return True
+    elif  board[3] == board[5]and board[3] == board[7] and board[7]==  player:
+        return True
+    else:
+        return False
+
 def play(event):
     global turn 
     button = event.widget
@@ -31,15 +51,24 @@ def play(event):
     if button["text" ] == " ":
         if turn == "X":
             button["text"] = "X"
-            board[clicked] = turn             
+            board[clicked] = turn   
+            if checkforwin(turn):
+                print(turn,'win the game ')
+                print('Game over')     
+                exit()     
             turn = "O"
         else:
             button["text"] = "O"
             board[clicked] = turn 
+            if checkforwin(turn):
+                print(turn,'win the game ')
+                print('Game over')
+                exit()
             turn = "X"
     print(board)
-    if board != " ":
-        exit()
+    
+    # if board != " ":
+        # exit()
 # Tic Tac Toe Board
 
 
@@ -56,9 +85,7 @@ button3 = Button(frame2,text = " ",width = 4,height = 2,font = ("Arial",35))
 button3.grid(row=0,column = 2)
 button3.bind("<Button-1>",play)
 
-
 #SECOND ROW
-
 
 button4 = Button(frame2,text = " ",width = 4,height = 2,font = ("Arial",35))
 button4.grid(row=1,column = 0)
@@ -85,29 +112,5 @@ button8.bind("<Button-1>",play)
 button9 = Button(frame2,text = " ",width = 4,height = 2,font = ("Arial",35))
 button9.grid(row=2,column = 2)
 button9.bind("<Button-1>",play)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 root.mainloop()
